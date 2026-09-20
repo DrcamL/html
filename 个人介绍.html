@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人名片</title>
+    <style>
+        /* 全局重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            
+            background: linear-gradient(0deg,#5f6fb7 0%,#152a8a 100%);
+            /* 蓝色渐变 background: linear-gradient(135deg,#5f6fb7 0%,#152a8a 100%);*/
+            /* 天空     background: linear-gradient(to bottom, #87CEEB, #E0F7FA);*/
+            /* 日落 background: linear-gradient(to bottom, #FF6B6B, #FFA94D, #FFD93D);*/
+
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        .card {
+            background: white;
+            width: 400px;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+             transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+     .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+        }
+        
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 25px;
+            background: linear-gradient(to bottom, #87CEEB, #E0F7FA);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+        }
+        
+        .name {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .title {
+            color: #667eea;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .info {
+            text-align: left;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .label {
+            color: #666;
+            font-weight: bold;
+        }
+        
+        .value {
+            color: #333;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px;
+            transition: transform 0.2s ease;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <!-- 头像 -->
+        <div class="avatar">👤</div>
+        
+        <!-- 姓名和职位 -->
+        <div class="name">张三</div>
+        <div class="title">高级前端开发工程师</div>
+        
+        <!-- 个人信息 -->
+        <div class="info">
+            <div class="info-item">
+                <span class="label">📧 邮箱</span>
+                <span class="value">zhangsan@email.com</span>
+            </div>
+            <div class="info-item">
+                <span class="label">📱 电话</span>
+                <span class="value">138-0000-8888</span>
+            </div>
+            <div class="info-item">
+                <span class="label">🏢 公司</span>
+                <span class="value">科技互联有限公司</span>
+            </div>
+            <div class="info-item">
+                <span class="label">📍 地址</span>
+                <span class="value">北京市朝阳区</span>
+            </div>
+        </div>
+        
+        <!-- 联系按钮 -->
+        <a href="#" class="btn">📩 联系我</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>注册 · 简洁版</title>
+  <style>
+    /* 全局重置 & 基础 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: #f2f6fb;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    /* 卡片 */
+    .register-card {
+      max-width: 440px;
+      width: 100%;
+      background: #ffffff;
+      padding: 2.2rem 2rem 2.5rem;
+      border-radius: 28px;
+      box-shadow: 0 12px 30px rgba(0, 20, 30, 0.10);
+    }
+
+    /* 标题 */
+    .register-title {
+      font-size: 1.9rem;
+      font-weight: 600;
+      color: #0b1a2a;
+      margin-bottom: 0.25rem;
+    }
+
+    .register-sub {
+      font-size: 0.9rem;
+      color: #5e6f8d;
+      margin-bottom: 2rem;
+      padding-left: 0.75rem;
+      border-left: 3px solid #3b82f6;
+      background: #f0f5fe;
+      border-radius: 0 8px 8px 0;
+      line-height: 1.4;
+    }
+
+    /* ----- 核心：Flex 对齐，靠左显示 ----- */
+    .form-group {
+      display: flex;
+      align-items: center;          /* 垂直居中 */
+      justify-content: flex-start;  /* 整体靠左 */
+      margin-bottom: 1.5rem;
+      gap: 0.75rem;
+    }
+
+    /* 统一标签宽度，左对齐 */
+    .form-group label {
+      width: 5.5rem;               /* 固定宽度，保证标签对齐 */
+      flex-shrink: 0;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #1f2a44;
+      text-align: left;
+    }
+
+    /* 右侧容器：输入框 + 按钮 */
+    .field-wrapper {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      gap: 0.6rem;
+      min-width: 0;
+    }
+
+    /* 输入框 */
+    .field-wrapper input {
+      flex: 1;
+      min-width: 0;
+      padding: 0.7rem 0.9rem;
+      border: 1.5px solid #dce3ed;
+      border-radius: 14px;
+      font-size: 0.95rem;
+      background: #fafcff;
+      outline: none;
+      height: 48px;
+      color: #0b1a2a;
+      transition: border 0.15s;
+    }
+
+    .field-wrapper input:focus {
+      border-color: #3b82f6;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
+    }
+
+    .field-wrapper input::placeholder {
+      color: #9aabbf;
+      font-size: 0.9rem;
+    }
+
+    /* 验证码按钮（纯样式，无功能） */
+    .captcha-btn {
+      flex-shrink: 0;
+      padding: 0 1.2rem;
+      height: 48px;
+      background: #eef4ff;
+      border: 1.5px solid #d0def0;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #1f3a6b;
+      cursor: default;            /* 纯展示，无交互 */
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0.3px;
+    }
+
+    /* 分割线 */
+    .divider {
+      margin: 1.8rem 0 1.6rem;
+      height: 1px;
+      background: #e3eaf2;
+    }
+
+    /* 注册按钮 */
+    .register-action {
+      width: 100%;
+      padding: 0.9rem;
+      background: #1a2e4a;
+      border: none;
+      border-radius: 40px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      transition: 0.15s;
+      letter-spacing: 0.5px;
+      box-shadow: 0 6px 14px rgba(26, 46, 74, 0.15);
+      margin-top: 0.3rem;
+    }
+
+    .register-action:hover {
+      background: #0f233c;
+      box-shadow: 0 8px 20px rgba(26, 46, 74, 0.25);
+    }
+
+    .register-action:active {
+      transform: scale(0.98);
+    }
+    /* 登录按钮 */
+    .log-action {
+      width: 100%;
+      padding: 0.9rem;
+      background: #1ab539;
+      border: none;
+      border-radius: 40px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      transition: 0.15s;
+      letter-spacing: 0.5px;
+      box-shadow: 0 6px 14px rgba(26, 46, 74, 0.15);
+      margin-top: 0.3rem;
+    }
+
+    .register-action:hover {
+      background: #0f233c;
+      box-shadow: 0 8px 20px rgba(26, 46, 74, 0.25);
+    }
+
+    .register-action:active {
+      transform: scale(0.98);
+    }
+    /* ===== 性别单选按钮组 ===== */
+    .gender-wrapper {
+      gap: 1.8rem;  /* 三个选项之间留够间距 */
+    }
+
+    /* 每个选项整体：圆圈 + 文字 */
+    .gender-option {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #1f2a44;
+      font-weight: 500;
+      user-select: none;            /* 防止双击选中文字 */
+    }
+
+    /* 隐藏原生 radio，用自定义圆圈代替 */
+    .gender-option input[type="radio"] {
+      display: none;
+    }
+
+    /* 自定义圆圈：未选中状态 */
+    .gender-mark {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #c4cfdd;
+      border-radius: 50%;
+      background: #ffffff;
+      position: relative;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+
+    /* 选中时：圆圈变蓝 + 内部出现小圆点 */
+    .gender-option input[type="radio"]:checked + .gender-mark {
+      border-color: #1d4ed8;
+      background: #ffffff;
+    }
+
+    /* 用伪元素画选中时的内部蓝点 */
+    .gender-option input[type="radio"]:checked + .gender-mark::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #1d4ed8;
+    }
+
+    /* 悬浮效果：鼠标悬停时圆圈边框加深 */
+    .gender-option:hover .gender-mark {
+      border-color: #9fb3cc;
+    }
+
+
+    /* 条款 */
+    .legal {
+      margin-top: 1.8rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #6b7d99;
+    }
+
+    .legal a {
+      color: #1f4a8a;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .legal a:hover {
+      text-decoration: underline;
+    }
+
+    /* 小屏适配 */
+    @media (max-width: 480px) {
+      .register-card {
+        padding: 1.8rem 1.2rem;
+      }
+
+      .form-group label {
+        width: 4.6rem;
+        font-size: 0.9rem;
+      }
+
+      .field-wrapper {
+        gap: 0.4rem;
+      }
+
+      .field-wrapper input {
+        padding: 0.5rem 0.7rem;
+        height: 44px;
+        font-size: 0.9rem;
+      }
+
+      .captcha-btn {
+        height: 44px;
+        padding: 0 0.9rem;
+        font-size: 0.75rem;
+      }
+
+      .register-title {
+        font-size: 1.6rem;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .form-group label {
+        width: 3.8rem;
+        font-size: 0.8rem;
+      }
+
+      .captcha-btn {
+        padding: 0 0.6rem;
+        font-size: 0.7rem;
+      }
+    }
+
+    /* 底部小提示（仅展示） */
+    .demo-note {
+      margin-top: 1.2rem;
+      font-size: 0.7rem;
+      color: #98a9c0;
+      text-align: center;
+      border-top: 1px dashed #dce3ed;
+      padding-top: 1rem;
+    }
+
+
+  </style>
+</head>
+<body>
+  <div class="register-card">
+
+    <h1 class="register-title">欢迎注册</h1>
+    <div class="register-sub">创建账号 · 信息填写</div>
+
+    <!-- 纯展示表单，无 JS -->
+    <form action="#" method="post">
+
+      <!-- 手机号码 -->
+      <div class="form-group">
+        <label for="phone">手机号码</label>
+        <div class="field-wrapper">
+          <input type="tel" id="phone" placeholder="请输入您的手机号" inputmode="numeric" />
+        </div>
+      </div>
+
+      <!-- 验证码 (带按钮) —— 标签与输入框完美左对齐 -->
+      <div class="form-group">
+        <label for="captcha">验证码</label>
+        <div class="field-wrapper">
+          <input type="text" id="captcha" placeholder="请输入验证码" inputmode="numeric" maxlength="6" />
+          <span class="captcha-btn">获取验证码</span>   <!-- 纯样式，无交互 -->
+        </div>
+      </div>
+           <!-- 手机号码 -->
+      <div class="form-group">
+        <label for="phone">邮箱</label>
+        <div class="field-wrapper">
+          <input type="email" id="phone" placeholder="请输入您的邮箱" />
+        </div>
+      </div>
+       <!-- 性别 —— 三个单选按钮横向排列 -->
+      <div class="form-group">
+        <label>性别</label>
+        <div class="field-wrapper gender-wrapper">
+          <!-- 男 -->
+          <label class="gender-option">
+            <input type="radio" name="gender" value="male" />
+            <span class="gender-mark"></span>
+            <span class="gender-text">男</span>
+          </label>
+          <!-- 女 -->
+          <label class="gender-option">
+            <input type="radio" name="gender" value="female" />
+            <span class="gender-mark"></span>
+            <span class="gender-text">女</span>
+          </label>
+          <!-- 未知 -->
+          <label class="gender-option">
+            <input type="radio" name="gender" value="unknown" />
+            <span class="gender-mark"></span>
+            <span class="gender-text">未知</span>
+          </label>
+        </div>
+      </div>
+
+
+
+
+      <div class="divider"></div>
+
+      <button type="submit" class="register-action">立即注册</button>
+        <button type="submit" class="log-action">登录</button>
+
+      <div class="legal">
+        注册即代表同意 <a href="#">《用户协议》</a> 和 <a href="#">《隐私政策》</a>
+      </div>
+
+      <div class="demo-note">
+        ⚡ 标签与输入框 · 靠左对齐 · Flex 居中
+      </div>
+    </form>
+  </div>
+</body>
+</html>
